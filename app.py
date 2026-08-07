@@ -15,12 +15,12 @@ def encrypt_vote(data):
     except:
         return str(data)
 
-# 1. FIRST PAGE - VOTER LOGIN
+#1.FIRSTPAGE-VOTERLOGIN
 @app.route('/')
 def index():
     return render_template('voter_login.html')
 
-# 2. REGISTER
+#2.REGISTER
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -48,7 +48,7 @@ def register():
 
     return render_template('register.html')
 
-# 3. VERIFY OTP
+#3.VERIFY OTP
 @app.route('/verify', methods=['POST'])
 def verify():
     name = request.form['name']
@@ -71,7 +71,7 @@ def verify():
         flash("Wrong OTP")
         return redirect('/register')
 
-# 4. VOTER LOGIN
+#4.VOTER LOGIN
 @app.route('/login', methods=['POST'])
 def login():
     aadhar = request.form['aadhar']
@@ -89,7 +89,7 @@ def login():
         flash("Invalid Credentials")
         return redirect('/')
 
-# 5. VOTE PAGE
+#5.VOTE PAGE
 @app.route('/vote')
 def vote():
     if 'voter_id' not in session:
@@ -98,7 +98,7 @@ def vote():
     candidates = cursor.fetchall()
     return render_template('vote.html', candidates=candidates)
 
-# 6. SUBMIT VOTE - YEHI FIX HAI
+#6.SUBMIT VOTE
 @app.route('/submit_vote', methods=['POST'])
 def submit_vote():
     try:
@@ -106,16 +106,13 @@ def submit_vote():
         voter_id = session['voter_id']
         encrypted = encrypt_vote(candidate_id)
 
-        # 1. Vote save karo
+        #1.Vote save karo
         cursor.execute("INSERT INTO votes(voter_id, candidate_id, encrypted_vote) VALUES(%s,%s,%s)",
                        (voter_id, candidate_id, encrypted))
 
-        # 2. Vote count +1 karo - YAHI LINE FIX
+        #2.Vote count +1 karo
         cursor.execute("UPDATE candidates SET vote_count = vote_count + 1 WHERE id=%s", (candidate_id,))
-        # AGAR TUMHARI TABLE ME 'candidate_id' hai TO UPAR WALI LINE KO YE KAR DO:
-        # cursor.execute("UPDATE candidates SET vote_count = vote_count + 1 WHERE candidate_id=%s", (candidate_id,))
-
-        # 3. Voter ko voted mark karo
+        #3.Voter ko voted mark karo
         cursor.execute("UPDATE voters SET has_voted=1 WHERE id=%s", (voter_id,))
         db.commit()
         session.clear()
@@ -126,7 +123,7 @@ def submit_vote():
         flash(f"Error: {e}")
         return redirect('/vote')
 
-# 7. ADMIN LOGIN
+#7.ADMIN LOGIN
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
     if request.method == 'POST':
@@ -136,7 +133,7 @@ def admin():
         flash("Wrong Admin Credentials")
     return render_template('admin_login.html')
 
-# 8. ADMIN DASHBOARD
+#8.ADMIN DASHBOARD
 @app.route('/dashboard')
 def dashboard():
     if 'admin' not in session:
@@ -147,7 +144,7 @@ def dashboard():
     voters = cursor.fetchall()
     return render_template('admin_dashboard.html', candidates=candidates, voters=voters)
 
-# 9. ADD CANDIDATE
+#9.ADD CANDIDATE
 @app.route('/add_candidate', methods=['POST'])
 def add_candidate():
     cursor.execute("INSERT INTO candidates(name, party) VALUES(%s,%s)",
@@ -155,20 +152,20 @@ def add_candidate():
     db.commit()
     return redirect('/dashboard')
 
-# 10. RESULT
+#10.RESULT
 @app.route('/result')
 def result():
     cursor.execute("SELECT name, party, vote_count FROM candidates ORDER BY vote_count DESC")
     results = cursor.fetchall()
     return render_template('result.html', results=results)
 
-# 11. LOGOUT
+#11.LOGOUT
 @app.route('/logout')
 def logout():
     session.clear()
     return redirect('/')
 
-# NGROK START
+#NGROK START
 if __name__ == '__main__':
     from pyngrok import ngrok
     ngrok.set_auth_token("3HSdNneBJPiBzxdiUJeWFea3urT_82pKJoQbvZGhiY1veye2z")
