@@ -1,0 +1,11 @@
+<!DOCTYPE html><html><head><title>Smart Voting System</title>
+<style>body{font-family:Arial;text-align:center;background:#f0f0f0}.box{width:300px;margin:100px auto;padding:20px;background:white;border-radius:10px;box-shadow:0 0 10px #ccc}</style>
+</head><body><div class="box">
+<h2>Smart Voting System</h2>
+{% with messages = get_flashed_messages() %}{% if messages %}<p style="color:red">{{messages[0]}}</p>{% endif %}{% endwith %}
+<form action="/login" method="post">
+<input type="text" name="aadhar" placeholder="Enter Aadhar" required><br><br>
+<input type="password" name="password" placeholder="Enter Password" required><br><br>
+<input type="submit" value="Login"></form>
+<br><a href="/register">New Voter Register</a> | <a href="/admin">Admin</a> | <a href="/result">Live Result</a>
+</div></body></html>

@@ -1,0 +1,8 @@
+<!DOCTYPE html><html><head><title>Vote</title>
+<style>body{font-family:Arial;text-align:center;background:#f0f0f0}.box{width:400px;margin:50px auto;padding:20px;background:white;border-radius:10px;box-shadow:0 0 10px #ccc}</style>
+</head><body><div class="box">
+<h2>Cast Your Vote</h2>
+<form action="/submit_vote" method="post">
+{% for c in candidates %}<input type="radio" name="candidate" value="{{c[0]}}" required> {{c[1]}} - {{c[2]}} <br><br>{% endfor %}
+<input type="submit" value="Submit Vote"></form>
+</div></body></html>

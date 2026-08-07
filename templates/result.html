@@ -1,0 +1,7 @@
+<!DOCTYPE html><html><head><title>Result</title>
+<style>body{font-family:Arial;text-align:center;background:#f0f0f0}.box{width:400px;margin:50px auto;padding:20px;background:white;border-radius:10px;box-shadow:0 0 10px #ccc}</style>
+</head><body><div class="box">
+<h2>Live Result</h2><table width="100%"><tr><th>Name</th><th>Party</th><th>Votes</th></tr>
+{% for r in results %}<tr><td>{{r[0]}}</td><td>{{r[1]}}</td><td>{{r[2]}}</td></tr>{% endfor %}</table>
+<br><a href="/">Home</a>
+</div></body></html>

@@ -1,0 +1,11 @@
+<!DOCTYPE html><html><head><title>Admin Dashboard</title>
+<style>body{font-family:Arial;padding:20px;background:#f0f0f0} table{width:100%;border-collapse:collapse;background:white} th,td{border:1px solid #ddd;padding:8px}</style>
+</head><body>
+<h2>Admin Dashboard</h2><a href="/logout" style="float:right">Logout</a>
+<h3>Candidates</h3><table><tr><th>ID</th><th>Name</th><th>Party</th><th>Votes</th></tr>
+{% for c in candidates %}<tr><td>{{c[0]}}</td><td>{{c[1]}}</td><td>{{c[2]}}</td><td>{{c[3]}}</td></tr>{% endfor %}</table>
+<h3>Add Candidate</h3><form action="/add_candidate" method="post">
+<input name="name" placeholder="Name" required><input name="party" placeholder="Party" required><input type="submit" value="Add"></form>
+<h3>Voters</h3><table><tr><th>ID</th><th>Name</th><th>Aadhar</th><th>Status</th></tr>
+{% for v in voters %}<tr><td>{{v[0]}}</td><td>{{v[1]}}</td><td>{{v[2]}}</td><td>{{'Voted' if v[5]==1 else 'Not Voted'}}</td></tr>{% endfor %}</table>
+</body></html>

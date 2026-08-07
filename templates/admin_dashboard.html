@@ -1,0 +1,10 @@
+<!DOCTYPE html><html><head><title>Admin Dashboard</title></head><body>
+<h2>Admin Dashboard</h2><h3>Candidates & Votes</h3>
+<table border="1"><tr><th>ID</th><th>Name</th><th>Party</th><th>Votes</th></tr>
+{% for c in candidates %}<tr><td>{{c[0]}}</td><td>{{c[1]}}</td><td>{{c[2]}}</td><td>{{c[3]}}</td></tr>{% endfor %}</table>
+<h3>Add New Candidate</h3><form action="/add_candidate" method="post">
+<input name="name" placeholder="Candidate Name" required><input name="party" placeholder="Party" required><button>Add</button></form>
+<h3>All Voters</h3><table border="1"><tr><th>ID</th><th>Name</th><th>Aadhar</th><th>Voted</th></tr>
+{% for v in voters %}<tr><td>{{v[0]}}</td><td>{{v[1]}}</td><td>{{v[2]}}</td><td>{{'Yes' if v[5]==1 else 'No'}}</td></tr>{% endfor %}</table>
+<br><a href="/logout">Logout</a>
+</body></html>

@@ -1,0 +1,13 @@
+<!DOCTYPE html><html><head><title>Verify OTP</title>
+<style>body{background:#667eea;display:flex;justify-content:center;align-items:center;height:100vh}
+.box{background:white;padding:30px;border-radius:10px;width:350px;text-align:center}</style></head>
+<body><div class="box"><h2>Verify OTP</h2>
+<p>Check CMD for OTP</p>
+<form action="/verify" method="POST">
+<input type="hidden" name="name" value="{{name}}">
+<input type="hidden" name="aadhar" value="{{aadhar}}">
+<input type="hidden" name="mobile" value="{{mobile}}">
+<input type="hidden" name="password" value="{{password}}">
+<input name="otp" placeholder="Enter 6 Digit OTP" required style="width:100%;padding:10px;margin:10px 0">
+<button style="width:100%;padding:10px;background:#667eea;color:white;border:none">Verify</button>
+</form></div></body></html>
